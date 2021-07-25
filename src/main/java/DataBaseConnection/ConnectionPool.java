@@ -1,33 +1,38 @@
 package DataBaseConnection;
 
-import java.io.InputStream;
+import CustomException.ExceptionHandler;
+import lombok.SneakyThrows;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 public class ConnectionPool {
+
+    private static final int INIT_POOL_SIZE = 16;
     private static final int MAX_TIMEOUT = 2;
-    private final static String DB_URL = "jdbc:postgresql://127.0.0.1:5432/employeesControl";
-    private final static String USER = "postgres";
-    private final static String PASS = "rty456";
+
+    private static final String DB_URL = "jdbc:postgresql://127.0.0.1:5432/employeesControl";
+    private static final String USER = "postgres";
+    private static final String PASS = "rty456";
+
     private final List<Connection> connectionPool;
     private final List<Connection> usedConnections = new ArrayList<>();
-    private static final int INITIAL_POOL_SIZE = 16;
 
 
+    @SneakyThrows
     public static ConnectionPool create() {
         try {
-            List<Connection> pool = new ArrayList<>(INITIAL_POOL_SIZE);
-            for (int i = 0; i < INITIAL_POOL_SIZE; i++) {
+            List<Connection> pool = new ArrayList<>(INIT_POOL_SIZE);
+            for (int i = 0; i < INIT_POOL_SIZE; i++) {
                 pool.add(createConnection());
             }
             return new ConnectionPool(pool);
 
         } catch (Exception e) {
-            throw new IllegalStateException(e);
+            throw new ExceptionHandler("The class in which the error was flown: " + ConnectionPool.class + ". In create method.",new IllegalStateException());
         }
     }
 
@@ -36,12 +41,12 @@ public class ConnectionPool {
     }
 
 
-    public Connection getConnection() throws SQLException {
+    public Connection getConnection() throws SQLException, ExceptionHandler {
         if (connectionPool.isEmpty()) {
-            if (usedConnections.size() < INITIAL_POOL_SIZE) {
+            if (usedConnections.size() < INIT_POOL_SIZE) {
                 connectionPool.add(createConnection());
             } else {
-                throw new RuntimeException("Reached max pool size, ");
+                throw new ExceptionHandler("The class in which the error was flown: " + ConnectionPool.class + ". Reached max poll size",new RuntimeException());
             }
         }
         Connection connection = connectionPool.remove(connectionPool.size() - 1);
@@ -52,7 +57,7 @@ public class ConnectionPool {
         return connection;
     }
 
-    public boolean releaseConnection(Connection connection) {
+    public boolean closeConnection(Connection connection) {
         connectionPool.add(connection);
         return usedConnections.remove(connection);
     }
@@ -63,10 +68,11 @@ public class ConnectionPool {
     }
 
     public void shutdown() throws SQLException {
-        usedConnections.forEach(this::releaseConnection);
-        for (Connection c : connectionPool) {
+
+        usedConnections.forEach(this::closeConnection);
+        for (Connection c : connectionPool)
             c.close();
-        }
+
         connectionPool.clear();
     }
 }

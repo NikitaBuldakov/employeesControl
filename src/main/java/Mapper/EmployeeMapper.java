@@ -17,13 +17,14 @@ public class EmployeeMapper implements RowMapper<Employee>{
     @SneakyThrows
     @Override
     public Employee mapRow(ResultSet resultSet, int depth){
-        if(depth<=2){
+        if(depth<=3){
+            depth++;
             Employee employee = new Employee();
             Project project = new Project();
             Feedback feedback = new Feedback();
 
             feedback.selectFeedBack(resultSet.getLong("feedback"));
-            project.selectProject(resultSet.getLong("project"), depth++);
+            project.selectProject(resultSet.getLong("project"), depth);
 
             employee.setId(resultSet.getInt("id"));
             employee.setName(resultSet.getString("username"));

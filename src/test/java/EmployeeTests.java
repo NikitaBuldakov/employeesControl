@@ -3,11 +3,15 @@ import DataBaseConnection.JDBCPostgreSQLConnector;
 import Entity.Employee;
 import Entity.EmployeeEnum.EnglishMastery;
 import Entity.EmployeeEnum.LevelOfDeveloper;
+import Entity.Feedback;
+import Entity.Project;
 import org.junit.*;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -16,6 +20,7 @@ public class EmployeeTests {
     private Employee employee;
     private GregorianCalendar birthDate;
     private GregorianCalendar dateOfEmployment;
+    private List<Employee> employeeList;
 
     @BeforeClass
     public static void init(){
@@ -25,9 +30,14 @@ public class EmployeeTests {
     @Before
     public void setUp(){
         employee = new Employee();
+        employeeList = new ArrayList<>();
+        Project project = new Project();
+        project.setId(1);
+        Feedback feedback = new Feedback();
+        feedback.setId(2);
         birthDate = new GregorianCalendar(2000, Calendar.APRIL, 24);
         dateOfEmployment = new GregorianCalendar(2021, Calendar.AUGUST, 12);
-        /*employee = new Employee("Nikita",
+        employee = new Employee("Nikita",
                 "Buldakov",
                 "Konstantinovich",
                 "nkb5@mail.ru",
@@ -35,13 +45,13 @@ public class EmployeeTests {
                 birthDate,
                 "None",
                 dateOfEmployment,
-                12,
+                project,
                 LevelOfDeveloper.J1,
                 EnglishMastery.B2,
                 "some skypes adress",
-                11);
+                feedback);
 
-         */
+
     }
 
     @AfterClass
@@ -51,7 +61,9 @@ public class EmployeeTests {
 
     @Test
     public void testAddedNewEmployee(){
+
         employee.addNewEmployee();
+        assertNotNull(employee);
     }
 
     @Test
@@ -64,7 +76,7 @@ public class EmployeeTests {
     public void testDeleteEmployee(){
         employee.addNewEmployee();
         employee.getLastEmployee();
-        assertTrue(employee.deleteEmployee());
+        employee.addNewEmployee();
     }
 
     @Test
@@ -72,5 +84,11 @@ public class EmployeeTests {
         employee.getLastEmployee();
         employee.setName("Andrew");
         employee.updateEmployee();
+    }
+
+    @Test
+    public void testSelectAllEmployee(){
+        employeeList = employee.selectAll();
+        assertNotNull(employeeList);
     }
 }

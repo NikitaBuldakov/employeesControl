@@ -1,5 +1,7 @@
 package DataBaseConnection;
 
+import CustomException.ExceptionHandler;
+
 import java.sql.*;
 
 public class JDBCPostgreSQLConnector {
@@ -16,9 +18,8 @@ public class JDBCPostgreSQLConnector {
 
 
 
-    public static int insert(String sql, String exception) throws SQLException {
+    public static int insert(String sql, String exception) throws  ExceptionHandler {
         Connection c = null;
-        //initConnection();
         try{
             c = connectionPool.getConnection();
             PreparedStatement preparedStatement = c.prepareStatement(sql);
@@ -27,17 +28,17 @@ public class JDBCPostgreSQLConnector {
                 return resultSet.getInt("id");
             }
         }catch (SQLException e){
-            e.printStackTrace();
+            throw new ExceptionHandler("The class in which the error was flown: " + JDBCPostgreSQLConnector.class
+                    + exception, e);
         }finally {
             if(c != null)
-                connectionPool.releaseConnection(c);
+                connectionPool.closeConnection(c);
         }
         return -1;
     }
 
-    public static boolean update(String sql, String exception) throws SQLException {
+    public static boolean update(String sql, String exception) throws  ExceptionHandler {
         Connection c = null;
-        //initConnection();
         try{
             c = connectionPool.getConnection();
             PreparedStatement preparedStatement = c.prepareStatement(sql);
@@ -46,18 +47,18 @@ public class JDBCPostgreSQLConnector {
                 return true;
             }
         }catch (SQLException e){
-            e.printStackTrace();
+            throw new ExceptionHandler("The class in which the error was flown: " + JDBCPostgreSQLConnector.class
+                    + exception, e);
         }finally {
             if(c != null)
-                connectionPool.releaseConnection(c);
+                connectionPool.closeConnection(c);
         }
         return false;
 
     }
 
-    public static ResultSet select(String sql, String exception) throws SQLException {
+    public static ResultSet select(String sql, String exception) throws ExceptionHandler {
         Connection c = null;
-        initConnection();
         try{
             c = connectionPool.getConnection();
             PreparedStatement preparedStatement = c.prepareStatement(sql);
@@ -66,17 +67,17 @@ public class JDBCPostgreSQLConnector {
                 return resultSet;
             }
         }catch (SQLException e){
-            e.printStackTrace();
+            throw new ExceptionHandler("The class in which the error was flown: " + JDBCPostgreSQLConnector.class
+                    + exception, e);
         }finally {
             if(c != null)
-                connectionPool.releaseConnection(c);
+                connectionPool.closeConnection(c);
         }
         return null;
     }
 
-    public static boolean delete(String sql, String exception) throws SQLException {
+    public static boolean delete(String sql, String exception) throws ExceptionHandler {
         Connection c = null;
-        //initConnection();
         try{
             c = connectionPool.getConnection();
             PreparedStatement preparedStatement = c.prepareStatement(sql);
@@ -85,12 +86,32 @@ public class JDBCPostgreSQLConnector {
                 return true;
             }
         }catch (SQLException e){
-            e.printStackTrace();
+            throw new ExceptionHandler("The class in which the error was flown: " + JDBCPostgreSQLConnector.class
+                    + exception, e);
         }finally {
             if(c != null)
-                connectionPool.releaseConnection(c);
+                connectionPool.closeConnection(c);
         }
         return false;
+    }
+
+    public static ResultSet selectAll(String sql, String exception) throws ExceptionHandler{
+        Connection c = null;
+        try{
+            c = connectionPool.getConnection();
+            PreparedStatement preparedStatement = c.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                return resultSet;
+            }
+        }catch (SQLException e){
+            throw new ExceptionHandler("The class in which the error was flown: " + JDBCPostgreSQLConnector.class
+                    + exception, e);
+        }finally {
+            if(c != null)
+                connectionPool.closeConnection(c);
+        }
+        return null;
     }
 
 }

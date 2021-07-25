@@ -1,13 +1,19 @@
 package Entity;
 
+import CustomException.ExceptionHandler;
+import DataBaseConnection.ConnectionPool;
 import Mapper.EmployeeMapper;
 import DataBaseConnection.JDBCPostgreSQLConnector;
+import Mapper.ListMapper;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 @Getter
 @Setter
@@ -74,14 +80,15 @@ public class Employee {
                     birthday.getTime() + "', '" +
                     workExperience + "', '" +
                     dateOfEmployment.getTime() + "', " +
-                    project + ", '" +
+                    project.getId() + ", '" +
                     levelOfDeveloper + "', '" +
                     englishMastery + "', '" +
                     skype + "', " +
-                    feedback +
+                    feedback.getId() +
                 " ) RETURNING id;";
 
-        setId(JDBCPostgreSQLConnector.insert(sql, "Not added new Employee in DataBase"));
+        setId(JDBCPostgreSQLConnector.insert(sql,Employee.class + " add method: the method in which the class was called " +
+                " Not added new Employee in DataBase"));
     }
 
     @SneakyThrows
@@ -89,7 +96,8 @@ public class Employee {
 
         sql = "DELETE FROM employee where id = " + this.id + ";";
 
-        return JDBCPostgreSQLConnector.delete(sql, "This employee doesn't exist");
+        return JDBCPostgreSQLConnector.delete(sql, Employee.class + " delete method: the method in which the class was called " +
+                " This employee doesn't exist");
     }
 
     @SneakyThrows
@@ -105,13 +113,14 @@ public class Employee {
                 "birthday = '" + birthday.getTime() + "', " +
                 "workexperience = '" +  workExperience + "', " +
                 "dateofemployment = '" + dateOfEmployment.getTime() + "', " +
-                "project = " + project + ", " +
+                "project = " + project.getId() + ", " +
                 "levelofdeveloper = '" + levelOfDeveloper + "', " +
                 "englishmastery = '" + englishMastery + "', " +
                 "skype = '" + skype + "', " +
-                "feedback = " + feedback +
+                "feedback = " + feedback.getId() +
                 " WHERE id = " + id;
-                JDBCPostgreSQLConnector.update(sql, "This employee doesn't exist");
+            JDBCPostgreSQLConnector.update(sql, Employee.class + " update method: the method in which the class was called " +
+                    " This employee doesn't exist");
     }
 
     @SneakyThrows
@@ -120,8 +129,13 @@ public class Employee {
 
         EmployeeMapper employeeMapper = new EmployeeMapper();
 
-        this.clone(employeeMapper.mapRow(JDBCPostgreSQLConnector
-                .select(sql, "Bad sql request or nothing to return"),1));
+        try {
+            this.clone(employeeMapper.mapRow(JDBCPostgreSQLConnector
+                    .select(sql, Employee.class + " getLast method: the method in which the class was called " + " Bad sql request or nothing to return"), 1));
+        }catch (NullPointerException e){
+            throw new ExceptionHandler("The class in which the error was flown: " + Employee.class
+                    + ". In getLastEmployee method.",e);
+        }
     }
 
     @SneakyThrows
@@ -133,21 +147,52 @@ public class Employee {
 
         try {
             this.clone(employeeMapper.mapRow(JDBCPostgreSQLConnector
-                    .select(sql, "Bad sql request or nothing to return"), depth));
+                    .select(sql, Employee.class + " select method: the method in which the class was called " +
+                            " Bad sql request or nothing to return"), depth));
         }catch (NullPointerException e)
         {
             this.id = employee_id;
+            throw new ExceptionHandler("The class in which the error was flown: " + Employee.class
+                    + ". In selectEmployee method.",e);
+
         }
     }
 
-    public String generateFIO(){
+    @SneakyThrows
+    public List<Employee> selectAll(){
+        sql = "SELECT * FROM employee";
 
+        List<Employee> employeeList = new ArrayList<Employee>();
+        ListMapper listMapper = new ListMapper();
+        EmployeeMapper employeeMapper = new EmployeeMapper();
+
+
+        List<Long> idArray = listMapper.mapRow(JDBCPostgreSQLConnector.selectAll(sql,Employee.class
+                + " select method: the method in which the class was called " +
+                " Bad sql request or nothing to return"), 0);
+
+        for (int i = 0; i < idArray.size() - 1; i++)
+            employeeList.add(employeeMapper.mapRow(JDBCPostgreSQLConnector
+                    .select("SELECT * FROM employee WHERE id = " + idArray.get(i), Employee.class
+                            + " selectAll method: the method in which the class was called "
+                            + " Bad sql request or nothing to return"), 0));
+
+        return employeeList;
+    }
+
+    public String generateFIO(){
         return this.surname + " " +
                 this.name.substring(0,1).toUpperCase() + ". " +
                 this.secondname.substring(0,1).toUpperCase() + ".";
     }
 
+    @SneakyThrows
     public void clone(Employee employee){
+        if(employee == null) {
+            throw new ExceptionHandler("The class in which the error was flown: " + Employee.class
+                    + ", an empty instance of the class was passed when the object was instantiated",
+                    new NullPointerException());
+        }
         this.id = employee.id;
         this.name = employee.name;
         this.surname = employee.surname;

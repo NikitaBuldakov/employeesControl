@@ -12,13 +12,19 @@ public class TeamMapper implements RowMapper<Team>{
     @Override
     @SneakyThrows
     public Team mapRow(ResultSet resultSet, int depth){
-        if(depth>=2) {
+        if(depth<=3) {
             Team team = new Team();
+            depth++;
+            boolean check = true;
             Employee employee = new Employee();
             team.setTeam_id(resultSet.getLong("team_id"));
-            while (resultSet.next()) {
-                employee.selectEmployee(resultSet.getLong("employee_id"), depth++);
+            while (check) {
+                employee.selectEmployee(resultSet.getLong("employee_id"), depth);
                 team.employeeList.add(employee);
+                while (!resultSet.next()){
+                    check = false;
+                    break;
+                }
             }
             return team;
         }
