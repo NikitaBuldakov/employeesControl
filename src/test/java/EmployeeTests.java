@@ -63,8 +63,11 @@ public class EmployeeTests {
     public void testAddedNewEmployee(){
 
         employee.addNewEmployee();
-        assertNotNull(employee);
+        Employee employeeLastAdded = new Employee();
+        employeeLastAdded.getLastEmployee();
+        assertEquals(employeeLastAdded.getId(),employee.getId());
     }
+
 
     @Test
     public void testSelectEmployee(){
@@ -76,7 +79,7 @@ public class EmployeeTests {
     public void testDeleteEmployee(){
         employee.addNewEmployee();
         employee.getLastEmployee();
-        employee.addNewEmployee();
+        assertTrue(employee.deleteEmployee());
     }
 
     @Test
@@ -84,6 +87,8 @@ public class EmployeeTests {
         employee.getLastEmployee();
         employee.setName("Andrew");
         employee.updateEmployee();
+        employee.getLastEmployee();
+        assertEquals("Andrew",employee.getName());
     }
 
     @Test

@@ -24,6 +24,16 @@ public class Project {
     public Team team;
     protected String sql = "";
 
+    public Project(String nameOfProject, String customer, String duration, String methodology,
+                   String projectManager, Team team) {
+        this.nameOfProject = nameOfProject;
+        this.customer = customer;
+        this.duration = duration;
+        this.methodology = methodology;
+        this.projectManager = projectManager;
+        this.team = team;
+    }
+
     @SneakyThrows
     public void addProject(){
         sql = "INSERT INTO project(name, customer, duration, methodology, projectmanager, team)" +
@@ -54,7 +64,7 @@ public class Project {
                 duration + "', methodology = '" +
                 methodology + "', projectmanager = '" +
                 projectManager + "', team = " +
-                team.getTeam_id();
+                team.getTeam_id() + "WHERE id = " + id;
 
         return JDBCPostgreSQLConnector.update(sql, Project.class
                 + " update method: the method in which the class was called ");
@@ -109,10 +119,6 @@ public class Project {
 
     @SneakyThrows
     public void clone(Project project){
-        if(project == null)
-            throw new ExceptionHandler("The class in which the error was flown: " + Project.class
-                    + ", an empty instance of the class was passed when the object was instantiated",
-                    new NullPointerException());
         this.id = project.id;
         this.nameOfProject = project.nameOfProject;
         this.customer = project.customer;

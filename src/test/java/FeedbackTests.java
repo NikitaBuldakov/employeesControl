@@ -6,16 +6,18 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class FeedbackTests {
 
     private GregorianCalendar dateOfCreating;
     private Feedback feedback;
+    List<Feedback> feedbackList;
 
     @BeforeClass
     public static void init(){
@@ -26,6 +28,7 @@ public class FeedbackTests {
     public void setUp(){
         dateOfCreating = new GregorianCalendar(2000, Calendar.APRIL, 24);
         feedback = new Feedback("All cool",dateOfCreating.getTime());
+        feedbackList = new ArrayList<>();
     }
 
     @AfterClass
@@ -36,6 +39,9 @@ public class FeedbackTests {
     @Test
     public void testAddedNewFeedback(){
         feedback.addNewFeedback();
+        Feedback feedbackLastAdded = new Feedback();
+        feedbackLastAdded.getLast();
+        assertEquals(feedbackLastAdded.getId(),feedback.getId());
     }
 
     @Test
@@ -48,7 +54,7 @@ public class FeedbackTests {
     public void testDeleteFeedback(){
         feedback.addNewFeedback();
         feedback.getLast();
-        feedback.deleteFeedback();
+        assertTrue(feedback.deleteFeedback());
     }
 
     @Test
@@ -56,6 +62,12 @@ public class FeedbackTests {
         feedback.addNewFeedback();
         feedback.getLast();
         feedback.setDescription("All bad");
-        feedback.updateFeedBack();
+        assertTrue(feedback.updateFeedBack());
+    }
+
+    @Test
+    public void testSelectAllFeedback(){
+        feedbackList = feedback.selectAll();
+        assertNotNull(feedbackList);
     }
 }

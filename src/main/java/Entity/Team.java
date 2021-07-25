@@ -21,26 +21,26 @@ public class Team {
     public List<Employee> employeeList = new ArrayList<>();
     protected String sql;
 
-    public Team(long id, Employee employee, long team_id){
+    public Team(long team_id, Employee employee){
         this.id = id;
         this.employeeList.add(employee);
         this.team_id = team_id;
     }
 
-    public Team(long id, List<Employee> employeeList, long team_id){
+    public Team(  long team_id, List<Employee> employeeList){
         this.id = id;
         this.employeeList = employeeList;
         this.team_id = team_id;
     }
 
-    public Team(long id, long team_id){
+    public Team(long team_id){
         this.id = id;
         this.team_id = team_id;
     }
 
     @SneakyThrows
     public void addNewTeam(){
-        for ( int i = 0; i < employeeList.size();i++) {
+        for ( int i = 0; i < employeeList.size() - 1;i++) {
             Employee employee = employeeList.get(i);
             sql = "INSERT INTO team(team_id, employee_id)" +
                     " VALUES( " +
@@ -53,7 +53,7 @@ public class Team {
 
     @SneakyThrows
     public boolean deleteTeam(){
-        sql = "DELETE FROM team WHERE id = " + this.team_id;
+        sql = "DELETE FROM team WHERE team_id = " + this.team_id;
 
         return JDBCPostgreSQLConnector.delete(sql,Team.class
                 + " delete method: the method in which the class was called ");
@@ -89,9 +89,13 @@ public class Team {
         sql = "SELECT * FROM team ORDER BY id DESC LIMIT 1";
         TeamMapper teamMapper = new TeamMapper();
         try {
-            this.clone(teamMapper.mapRow(JDBCPostgreSQLConnector.select(sql, Team.class
+            this.clone(
+                    teamMapper.mapRow(
+                    JDBCPostgreSQLConnector.select(sql, Team.class
                     + " getLast method: the method in which the class was called "), 0));
-        }catch (NullPointerException e){e.printStackTrace();}
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
     @SneakyThrows
@@ -115,12 +119,7 @@ public class Team {
         return teamList;
     }
 
-    @SneakyThrows
     public void clone(Team team){
-        if(team == null)
-            throw new ExceptionHandler("The class in which the error was flown: " + Team.class
-                    + ", an empty instance of the class was passed when the object was instantiated",
-                    new NullPointerException());
         this.id = team.id;
         this.team_id = team.team_id;
         this.employeeList = team.employeeList;

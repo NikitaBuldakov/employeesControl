@@ -96,8 +96,8 @@ public class Employee {
 
         sql = "DELETE FROM employee where id = " + this.id + ";";
 
-        return JDBCPostgreSQLConnector.delete(sql, Employee.class + " delete method: the method in which the class was called " +
-                " This employee doesn't exist");
+            return JDBCPostgreSQLConnector.delete(sql, Employee.class + " delete method: the method in which the class was called " +
+                    " This employee doesn't exist");
     }
 
     @SneakyThrows
@@ -152,9 +152,6 @@ public class Employee {
         }catch (NullPointerException e)
         {
             this.id = employee_id;
-            throw new ExceptionHandler("The class in which the error was flown: " + Employee.class
-                    + ". In selectEmployee method.",e);
-
         }
     }
 
@@ -188,11 +185,6 @@ public class Employee {
 
     @SneakyThrows
     public void clone(Employee employee){
-        if(employee == null) {
-            throw new ExceptionHandler("The class in which the error was flown: " + Employee.class
-                    + ", an empty instance of the class was passed when the object was instantiated",
-                    new NullPointerException());
-        }
         this.id = employee.id;
         this.name = employee.name;
         this.surname = employee.surname;

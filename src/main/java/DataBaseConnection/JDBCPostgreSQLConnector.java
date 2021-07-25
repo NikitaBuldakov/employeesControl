@@ -39,11 +39,12 @@ public class JDBCPostgreSQLConnector {
 
     public static boolean update(String sql, String exception) throws  ExceptionHandler {
         Connection c = null;
+        boolean check;
         try{
             c = connectionPool.getConnection();
             PreparedStatement preparedStatement = c.prepareStatement(sql);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if(!resultSet.next()){
+            check = preparedStatement.execute();
+            if(!check){
                 return true;
             }
         }catch (SQLException e){
@@ -78,11 +79,12 @@ public class JDBCPostgreSQLConnector {
 
     public static boolean delete(String sql, String exception) throws ExceptionHandler {
         Connection c = null;
+        boolean check;
         try{
             c = connectionPool.getConnection();
             PreparedStatement preparedStatement = c.prepareStatement(sql);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if(!resultSet.next()){
+            check = preparedStatement.execute();
+            if(!check){
                 return true;
             }
         }catch (SQLException e){

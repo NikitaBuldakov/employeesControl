@@ -17,6 +17,7 @@ public class TeamMapper implements RowMapper<Team>{
             depth++;
             boolean check = true;
             Employee employee = new Employee();
+            team.setId(resultSet.getLong("id"));
             team.setTeam_id(resultSet.getLong("team_id"));
             while (check) {
                 employee.selectEmployee(resultSet.getLong("employee_id"), depth);
