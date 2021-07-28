@@ -2,7 +2,7 @@ package CustomException;
 
 public class ExceptionHandler extends Exception{
 
-    public ExceptionHandler(){}
+    public ExceptionHandler(){super.printStackTrace();}
 
     public ExceptionHandler(String message){
         super(message);

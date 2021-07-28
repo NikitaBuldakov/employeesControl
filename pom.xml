@@ -14,6 +14,8 @@
         <lombok.version>RELEASE</lombok.version>
         <postgresql.version>42.0.0</postgresql.version>
         <slf4j.version>1.7.28</slf4j.version>
+        <spring.core.version>5.2.12.RELEASE</spring.core.version>
+        <org.hibernate.version>5.4.32.Final</org.hibernate.version>
     </properties>
 
     <dependencies>
@@ -24,10 +26,25 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.core.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${org.hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${org.hibernate.version}</version>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
