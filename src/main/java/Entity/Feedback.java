@@ -6,15 +6,15 @@ import Mapper.EmployeeMapper;
 import Mapper.FeedbackMapper;
 import Mapper.ListMapper;
 import lombok.*;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Setter
-@Getter
+@Data
+@Component
 @NoArgsConstructor
-@AllArgsConstructor
 public class Feedback {
     private long id;
     public String description;

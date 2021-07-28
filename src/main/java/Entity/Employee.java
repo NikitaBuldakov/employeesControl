@@ -5,9 +5,8 @@ import DataBaseConnection.ConnectionPool;
 import Mapper.EmployeeMapper;
 import DataBaseConnection.JDBCPostgreSQLConnector;
 import Mapper.ListMapper;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.SneakyThrows;
+import lombok.*;
+import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,8 +14,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
+@Component
 public class Employee {
 
     private long id;

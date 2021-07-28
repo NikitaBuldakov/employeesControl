@@ -7,14 +7,14 @@ import Mapper.ListMapper;
 import Mapper.ProjectMapper;
 import Mapper.TeamMapper;
 import lombok.*;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Setter
-@Getter
+@Data
+@Component
 @NoArgsConstructor
-@AllArgsConstructor
 public class Team {
     private long id;
     public long team_id;

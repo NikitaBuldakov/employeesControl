@@ -6,14 +6,14 @@ import Mapper.EmployeeMapper;
 import Mapper.ListMapper;
 import Mapper.ProjectMapper;
 import lombok.*;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Setter
-@Getter
+@Data
+@Component
 @NoArgsConstructor
-@AllArgsConstructor
 public class Project {
     private long id;
     public String nameOfProject;

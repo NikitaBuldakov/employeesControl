@@ -6,6 +6,7 @@ import Entity.EmployeeEnum.LevelOfDeveloper;
 import Entity.Feedback;
 import Entity.Project;
 import org.junit.*;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-
+@ComponentScan(basePackages = "src/main/java")
 public class EmployeeTests {
 
     private Employee employee;
