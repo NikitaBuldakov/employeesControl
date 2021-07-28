@@ -6,6 +6,8 @@ import Entity.EmployeeEnum.LevelOfDeveloper;
 import Entity.Feedback;
 import Entity.Project;
 import org.junit.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,11 +32,13 @@ public class EmployeeTests {
 
     @Before
     public void setUp(){
-        employee = new Employee();
+
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
+        employee = (Employee) applicationContext.getBean("employee");
         employeeList = new ArrayList<>();
-        Project project = new Project();
+        Project project = (Project) applicationContext.getBean("project");
         project.setId(1);
-        Feedback feedback = new Feedback();
+        Feedback feedback = (Feedback) applicationContext.getBean("feedback");
         feedback.setId(2);
         birthDate = new GregorianCalendar(2000, Calendar.APRIL, 24);
         dateOfEmployment = new GregorianCalendar(2021, Calendar.AUGUST, 12);
