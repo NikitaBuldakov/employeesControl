@@ -14,7 +14,7 @@ public class ConnectionPool {
     private static final int INIT_POOL_SIZE = 16;
     private static final int MAX_TIMEOUT = 2;
 
-    private static final String DB_URL = "jdbc:postgresql://127.0.0.1:5432/employeesControl";
+    private static final String DB_URL = "jdbc:postgresql://localhost:5432/employeeControl";
     private static final String USER = "postgres";
     private static final String PASS = "rty456";
 
