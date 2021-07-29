@@ -1,10 +1,8 @@
-package Entity;
+package org.buldakov.employeeControl.Entity;
 
-import CustomException.ExceptionHandler;
-import DataBaseConnection.JDBCPostgreSQLConnector;
-import Mapper.EmployeeMapper;
-import Mapper.ListMapper;
-import Mapper.ProjectMapper;
+import org.buldakov.employeeControl.DataBaseConnection.JDBCPostgreSQLConnector;
+import org.buldakov.employeeControl.Mapper.ListMapper;
+import org.buldakov.employeeControl.Mapper.ProjectMapper;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +11,6 @@ import java.util.List;
 
 @Data
 @Component
-@NoArgsConstructor
 public class Project {
     private long id;
     public String nameOfProject;
@@ -33,6 +30,8 @@ public class Project {
         this.projectManager = projectManager;
         this.team = team;
     }
+
+    public Project(){}
 
     @SneakyThrows
     public void addProject(){

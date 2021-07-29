@@ -1,15 +1,13 @@
-package Mapper;
+package org.buldakov.employeeControl.Mapper;
 
-import DataBaseConnection.JDBCPostgreSQLConnector;
-import Entity.Employee;
-import Entity.EmployeeEnum.EnglishMastery;
-import Entity.EmployeeEnum.LevelOfDeveloper;
-import Entity.Feedback;
-import Entity.Project;
+import org.buldakov.employeeControl.Entity.Employee;
+import org.buldakov.employeeControl.Entity.EmployeeEnum.EnglishMastery;
+import org.buldakov.employeeControl.Entity.EmployeeEnum.LevelOfDeveloper;
+import org.buldakov.employeeControl.Entity.Feedback;
+import org.buldakov.employeeControl.Entity.Project;
 import lombok.SneakyThrows;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Date;
 
 public class EmployeeMapper implements RowMapper<Employee>{

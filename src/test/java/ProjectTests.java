@@ -1,6 +1,6 @@
-import DataBaseConnection.JDBCPostgreSQLConnector;
-import Entity.Project;
-import Entity.Team;
+import org.buldakov.employeeControl.DataBaseConnection.JDBCPostgreSQLConnector;
+import org.buldakov.employeeControl.Entity.Project;
+import org.buldakov.employeeControl.Entity.Team;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -13,7 +13,6 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-@ComponentScan(basePackages = "src/main/java")
 public class ProjectTests {
 
     private Project project;

@@ -1,4 +1,4 @@
-package CustomException;
+package org.buldakov.employeeControl.CustomException;
 
 public class ExceptionHandler extends Exception{
 

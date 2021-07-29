@@ -1,14 +1,12 @@
-package Entity;
+package org.buldakov.employeeControl.Entity;
 
-import CustomException.ExceptionHandler;
-import DataBaseConnection.ConnectionPool;
-import Mapper.EmployeeMapper;
-import DataBaseConnection.JDBCPostgreSQLConnector;
-import Mapper.ListMapper;
+import org.buldakov.employeeControl.CustomException.ExceptionHandler;
+import org.buldakov.employeeControl.Mapper.EmployeeMapper;
+import org.buldakov.employeeControl.DataBaseConnection.JDBCPostgreSQLConnector;
+import org.buldakov.employeeControl.Mapper.ListMapper;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;

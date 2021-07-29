@@ -1,11 +1,13 @@
-package DataBaseConnection;
+package org.buldakov.employeeControl.DataBaseConnection;
 
-import CustomException.ExceptionHandler;
+import org.buldakov.employeeControl.CustomException.ExceptionHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.*;
 
 public class JDBCPostgreSQLConnector {
 
+    @Autowired
     private static ConnectionPool connectionPool;
 
     public static void initConnection(){

@@ -1,7 +1,7 @@
-package Mapper;
+package org.buldakov.employeeControl.Mapper;
 
-import Entity.Project;
-import Entity.Team;
+import org.buldakov.employeeControl.Entity.Project;
+import org.buldakov.employeeControl.Entity.Team;
 import lombok.SneakyThrows;
 
 import java.sql.ResultSet;

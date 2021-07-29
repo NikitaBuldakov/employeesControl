@@ -1,8 +1,6 @@
-import DataBaseConnection.JDBCPostgreSQLConnector;
-import Entity.Employee;
-import Entity.Feedback;
-import Entity.Project;
-import Entity.Team;
+import org.buldakov.employeeControl.DataBaseConnection.JDBCPostgreSQLConnector;
+import org.buldakov.employeeControl.Entity.Employee;
+import org.buldakov.employeeControl.Entity.Team;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -11,14 +9,11 @@ import org.springframework.context.annotation.ComponentScan;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertTrue;
 
-@ComponentScan(basePackages = "src/main/java")
 public class TeamTests {
 
     private Team team;

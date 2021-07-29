@@ -1,11 +1,8 @@
-package Entity;
+package org.buldakov.employeeControl.Entity;
 
-import CustomException.ExceptionHandler;
-import DataBaseConnection.JDBCPostgreSQLConnector;
-import Mapper.EmployeeMapper;
-import Mapper.ListMapper;
-import Mapper.ProjectMapper;
-import Mapper.TeamMapper;
+import org.buldakov.employeeControl.DataBaseConnection.JDBCPostgreSQLConnector;
+import org.buldakov.employeeControl.Mapper.ListMapper;
+import org.buldakov.employeeControl.Mapper.TeamMapper;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
@@ -14,12 +11,13 @@ import java.util.List;
 
 @Data
 @Component
-@NoArgsConstructor
 public class Team {
     private long id;
     public long team_id;
     public List<Employee> employeeList = new ArrayList<>();
     protected String sql;
+
+    public Team(){}
 
     public Team(long team_id, Employee employee){
         this.id = id;
@@ -37,6 +35,9 @@ public class Team {
         this.id = id;
         this.team_id = team_id;
     }
+
+
+
 
     @SneakyThrows
     public void addNewTeam(){

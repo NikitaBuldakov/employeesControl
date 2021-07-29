@@ -1,8 +1,7 @@
-package Mapper;
+package org.buldakov.employeeControl.Mapper;
 
-import DataBaseConnection.JDBCPostgreSQLConnector;
-import Entity.Employee;
-import Entity.Team;
+import org.buldakov.employeeControl.Entity.Employee;
+import org.buldakov.employeeControl.Entity.Team;
 import lombok.SneakyThrows;
 
 import java.sql.ResultSet;

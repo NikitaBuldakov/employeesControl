@@ -1,9 +1,8 @@
-package Mapper;
+package org.buldakov.employeeControl.Mapper;
 
 import lombok.SneakyThrows;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public interface RowMapper <E>{
     @SneakyThrows

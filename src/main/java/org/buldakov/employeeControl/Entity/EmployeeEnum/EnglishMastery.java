@@ -1,4 +1,4 @@
-package Entity.EmployeeEnum;
+package org.buldakov.employeeControl.Entity.EmployeeEnum;
 
 public enum EnglishMastery {
     A1,

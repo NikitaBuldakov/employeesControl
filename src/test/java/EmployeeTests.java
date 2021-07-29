@@ -1,11 +1,14 @@
-import DataBaseConnection.ConnectionPool;
-import DataBaseConnection.JDBCPostgreSQLConnector;
-import Entity.Employee;
-import Entity.EmployeeEnum.EnglishMastery;
-import Entity.EmployeeEnum.LevelOfDeveloper;
-import Entity.Feedback;
-import Entity.Project;
+import org.buldakov.employeeControl.Config.SpringConfig;
+import org.buldakov.employeeControl.DataBaseConnection.JDBCPostgreSQLConnector;
+import org.buldakov.employeeControl.Entity.Employee;
+import org.buldakov.employeeControl.Entity.EmployeeEnum.EnglishMastery;
+import org.buldakov.employeeControl.Entity.EmployeeEnum.LevelOfDeveloper;
+import org.buldakov.employeeControl.Entity.Feedback;
+import org.buldakov.employeeControl.Entity.Project;
 import org.junit.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
 import java.sql.SQLException;
@@ -16,10 +19,11 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-@ComponentScan(basePackages = "src/main/java")
 public class EmployeeTests {
 
     private Employee employee;
+    private Project project;
+    private Feedback feedback;
     private GregorianCalendar birthDate;
     private GregorianCalendar dateOfEmployment;
     private List<Employee> employeeList;
@@ -31,11 +35,16 @@ public class EmployeeTests {
 
     @Before
     public void setUp(){
-        employee = new Employee();
+
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+        ctx.register(SpringConfig.class);
+        ctx.scan("org.buldakov.employeeControl");
+        ctx.refresh();
+
+        feedback = ctx.getBean(Feedback.class);
+        project = ctx.getBean(Project.class);
         employeeList = new ArrayList<>();
-        Project project = new Project();
         project.setId(1);
-        Feedback feedback = new Feedback();
         feedback.setId(2);
         birthDate = new GregorianCalendar(2000, Calendar.APRIL, 24);
         dateOfEmployment = new GregorianCalendar(2021, Calendar.AUGUST, 12);

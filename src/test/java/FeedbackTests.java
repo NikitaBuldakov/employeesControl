@@ -1,5 +1,5 @@
-import DataBaseConnection.JDBCPostgreSQLConnector;
-import Entity.Feedback;
+import org.buldakov.employeeControl.DataBaseConnection.JDBCPostgreSQLConnector;
+import org.buldakov.employeeControl.Entity.Feedback;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -14,7 +14,6 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-@ComponentScan(basePackages = "src/main/java")
 public class FeedbackTests {
 
     private GregorianCalendar dateOfCreating;

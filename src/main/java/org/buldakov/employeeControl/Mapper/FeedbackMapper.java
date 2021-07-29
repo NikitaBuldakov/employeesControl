@@ -1,6 +1,6 @@
-package Mapper;
+package org.buldakov.employeeControl.Mapper;
 
-import Entity.Feedback;
+import org.buldakov.employeeControl.Entity.Feedback;
 import lombok.SneakyThrows;
 
 import java.sql.ResultSet;

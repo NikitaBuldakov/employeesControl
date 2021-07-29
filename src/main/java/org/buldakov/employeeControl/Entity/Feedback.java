@@ -1,10 +1,9 @@
-package Entity;
+package org.buldakov.employeeControl.Entity;
 
-import CustomException.ExceptionHandler;
-import DataBaseConnection.JDBCPostgreSQLConnector;
-import Mapper.EmployeeMapper;
-import Mapper.FeedbackMapper;
-import Mapper.ListMapper;
+import org.buldakov.employeeControl.CustomException.ExceptionHandler;
+import org.buldakov.employeeControl.DataBaseConnection.JDBCPostgreSQLConnector;
+import org.buldakov.employeeControl.Mapper.FeedbackMapper;
+import org.buldakov.employeeControl.Mapper.ListMapper;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +13,6 @@ import java.util.List;
 
 @Data
 @Component
-@NoArgsConstructor
 public class Feedback {
     private long id;
     public String description;
@@ -24,6 +22,9 @@ public class Feedback {
     public Feedback(String description, Date dateOfCreating){
         this.description = description;
         this.dateOfCreating = dateOfCreating;
+    }
+
+    public Feedback(){
     }
 
 
