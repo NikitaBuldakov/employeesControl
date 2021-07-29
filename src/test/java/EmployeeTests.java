@@ -1,15 +1,10 @@
 import org.buldakov.employeeControl.Config.SpringConfig;
-import org.buldakov.employeeControl.DataBaseConnection.JDBCPostgreSQLConnector;
 import org.buldakov.employeeControl.Entity.Employee;
 import org.buldakov.employeeControl.Entity.EmployeeEnum.EnglishMastery;
 import org.buldakov.employeeControl.Entity.EmployeeEnum.LevelOfDeveloper;
-import org.buldakov.employeeControl.Entity.Feedback;
-import org.buldakov.employeeControl.Entity.Project;
+import org.buldakov.employeeControl.Entity.Team;
 import org.junit.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,8 +17,8 @@ import static org.junit.Assert.*;
 public class EmployeeTests {
 
     private Employee employee;
-    private Project project;
-    private Feedback feedback;
+    private Team project;
+    private Team feedback;
     private GregorianCalendar birthDate;
     private GregorianCalendar dateOfEmployment;
     private List<Employee> employeeList;
@@ -41,8 +36,8 @@ public class EmployeeTests {
         ctx.scan("org.buldakov.employeeControl");
         ctx.refresh();
 
-        feedback = ctx.getBean(Feedback.class);
-        project = ctx.getBean(Project.class);
+        feedback = ctx.getBean(Team.class);
+        project = ctx.getBean(Team.class);
         employeeList = new ArrayList<>();
         project.setId(1);
         feedback.setId(2);

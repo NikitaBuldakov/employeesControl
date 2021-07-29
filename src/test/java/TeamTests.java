@@ -1,11 +1,9 @@
-import org.buldakov.employeeControl.DataBaseConnection.JDBCPostgreSQLConnector;
 import org.buldakov.employeeControl.Entity.Employee;
 import org.buldakov.employeeControl.Entity.Team;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.context.annotation.ComponentScan;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

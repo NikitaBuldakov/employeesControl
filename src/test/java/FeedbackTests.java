@@ -1,10 +1,8 @@
-import org.buldakov.employeeControl.DataBaseConnection.JDBCPostgreSQLConnector;
-import org.buldakov.employeeControl.Entity.Feedback;
+import org.buldakov.employeeControl.Entity.Team;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.context.annotation.ComponentScan;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,8 +15,8 @@ import static org.junit.Assert.*;
 public class FeedbackTests {
 
     private GregorianCalendar dateOfCreating;
-    private Feedback feedback;
-    List<Feedback> feedbackList;
+    private Team feedback;
+    List<Team> feedbackList;
 
     @BeforeClass
     public static void init(){
@@ -28,7 +26,7 @@ public class FeedbackTests {
     @Before
     public void setUp(){
         dateOfCreating = new GregorianCalendar(2000, Calendar.APRIL, 24);
-        feedback = new Feedback("All cool",dateOfCreating.getTime());
+        feedback = new Team("All cool",dateOfCreating.getTime());
         feedbackList = new ArrayList<>();
     }
 
@@ -40,7 +38,7 @@ public class FeedbackTests {
     @Test
     public void testAddedNewFeedback(){
         feedback.addNewFeedback();
-        Feedback feedbackLastAdded = new Feedback();
+        Team feedbackLastAdded = new Team();
         feedbackLastAdded.getLast();
         assertEquals(feedbackLastAdded.getId(),feedback.getId());
     }
