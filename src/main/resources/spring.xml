@@ -7,6 +7,15 @@
     <bean id = "feedback" class="Entity.Feedback"/>
     <bean id = "project" class="Entity.Project"/>
     <bean id = "team" class="Entity.Team"/>
-    <bean id = "connectionPool" class="DataBaseConnection.ConnectionPool" factory-method="create"/>
+    <bean id = "employeeDAOImpl" class="DAO.EmployeeDAOImpl"/>
+    <bean id = "feedbackDAOImpl" class="DAO.FeedbackDAOImpl"/>
+    <bean id = "projectDAOImpl" class="DAO.ProjectDAOImpl"/>
+    <bean id = "teamDAOImpl" class="DAO.TeamDAOImpl"/>
+    <bean id = "employeeService" class="Service.EmployeeService"/>
+    <bean id = "feedbackService" class="Service.FeedbackService"/>
+    <bean id = "projectService" class="Service.ProjectService"/>
+    <bean id = "teamService" class="Service.TeamService"/>
+    <bean id = "hibernateUtil" class="HibernateUtil.HibernateSessionFactoryUtil" factory-method="getSessionFactory"/>
+
 
 </beans>

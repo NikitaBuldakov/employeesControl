@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="Entity">
+    <class name="Project" table="project">
+        <id name="id" type="long" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="customer" type="long" column="customer"/>
+        <property name="duration" type="long" column="duration"/>
+        <property name="methodology" type="long" column="methodology"/>
+        <property name="nameOfProject" type="long" column="name"/>
+        <property name="projectManager" type="long" column="projectmanager"/>
+        <property name="team" type="long" column="team_id"/>
+    </class>
+</hibernate-mapping>

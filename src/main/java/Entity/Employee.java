@@ -26,10 +26,11 @@ public class Employee {
     public String workExperience;
     public Date dateOfEmployment;
     public Project project;
-    public Enum levelOfDeveloper;
-    public Enum englishMastery;
+    public String levelOfDeveloper;
+    public String englishMastery;
     public String skype;
     public Feedback feedback;
+    public Team team;
     protected String sql;
 
     public Employee(){}
@@ -57,8 +58,8 @@ public class Employee {
         this.workExperience = workExperience;
         this.dateOfEmployment = new Date(dateOfEmployment.getTimeInMillis());
         this.project = project;
-        this.levelOfDeveloper = levelOfDeveloper;
-        this.englishMastery = englishMastery;
+        this.levelOfDeveloper = levelOfDeveloper.toString();
+        this.englishMastery = englishMastery.toString();
         this.skype = skype;
         this.feedback = feedback;
     }

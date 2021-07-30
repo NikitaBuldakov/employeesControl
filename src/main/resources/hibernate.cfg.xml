@@ -16,5 +16,9 @@
     <property name="hibernate.c3p0.timeout">1800</property>
     <property name="hibernate.hbm2ddl.auto">create</property>
     <property name="hibernate.hbm2ddl.import_files">import.sql</property>
+    <mapping resource="Employee.hbm.xml"/>
+    <mapping resource="Feedback.hbm.xml"/>
+    <mapping resource="Project.hbm.xml"/>
+    <mapping resource="Team.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

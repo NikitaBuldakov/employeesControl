@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="Entity">
+    <class name="Employee" table="employee">
+        <id name="id" type="long" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="name" type="string" column="username"/>
+        <property name="surname" type="string" column="surname"/>
+        <property name="secondname" type="string" column="secondname"/>
+        <property name="fio" type="string" column="fio"/>
+        <property name="email" type="string" column="email"/>
+        <property name="phone" type="string" column="phone"/>
+        <property name="birthday" type="timestamp" column="birthday"/>
+        <property name="workExperience" type="string" column="workexperience"/>
+        <property name="dateOfEmployment" type="timestamp" column="dateofemployment"/>
+        <one-to-one name="project" class="Entity.Project" cascade="save-update"/>
+        <property name="levelOfDeveloper" type="string" column="levelofdeveloper"/>
+        <property name="englishMastery" type="string" column="englishmastery"/>
+        <property name="skype" type="string" column="skype"/>
+        <one-to-one name="feedback" class="Entity.Feedback" cascade="save-update"/>
+        <many-to-one name="team" class="Entity.Team">
+            <column name="employee_id"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

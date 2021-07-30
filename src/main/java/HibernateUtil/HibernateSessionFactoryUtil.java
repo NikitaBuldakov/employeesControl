@@ -9,20 +9,16 @@ import lombok.SneakyThrows;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 
 
-@Component
+
+
 public class HibernateSessionFactoryUtil {
     private static SessionFactory sessionFactory;
 
     private HibernateSessionFactoryUtil() {}
 
     @SneakyThrows
-    @PostConstruct
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             try {
@@ -42,7 +38,6 @@ public class HibernateSessionFactoryUtil {
         return sessionFactory;
     }
 
-    @PreDestroy
     public static void shutdown() {
         getSessionFactory().close();
     }

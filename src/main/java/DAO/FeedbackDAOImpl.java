@@ -4,7 +4,7 @@ import Entity.Feedback;
 import HibernateUtil.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.springframework.stereotype.Component;
+
 
 import java.util.List;
 
