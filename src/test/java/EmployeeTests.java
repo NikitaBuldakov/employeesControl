@@ -1,16 +1,13 @@
 import Entity.Employee;
-import Entity.EmployeeEnum.EnglishMastery;
-import Entity.EmployeeEnum.LevelOfDeveloper;
 import Entity.Feedback;
 import Entity.Project;
+import HibernateUtil.HibernateSessionFactoryUtil;
+import Service.EmployeeService;
 import org.junit.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -19,9 +16,11 @@ import static org.junit.Assert.*;
 public class EmployeeTests {
 
     private Employee employee;
-    private GregorianCalendar birthDate;
-    private GregorianCalendar dateOfEmployment;
+    private Project project;
+    private Feedback feedback;
     private List<Employee> employeeList;
+    private List<Employee> modifiedList;
+    private EmployeeService employeeService;
 
 
 
@@ -31,67 +30,65 @@ public class EmployeeTests {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
         employee = (Employee) applicationContext.getBean("employee");
         employeeList = new ArrayList<>();
-        Project project = (Project) applicationContext.getBean("project");
+        project = (Project) applicationContext.getBean("project");
         project.setId(1);
-        Feedback feedback = (Feedback) applicationContext.getBean("feedback");
+        feedback = (Feedback) applicationContext.getBean("feedback");
         feedback.setId(2);
-        birthDate = new GregorianCalendar(2000, Calendar.APRIL, 24);
-        dateOfEmployment = new GregorianCalendar(2021, Calendar.AUGUST, 12);
-        employee = new Employee("Nikita",
-                "Buldakov",
-                "Konstantinovich",
-                "nkb5@mail.ru",
-                "89533553049",
-                birthDate,
-                "None",
-                dateOfEmployment,
-                project,
-                LevelOfDeveloper.J1,
-                EnglishMastery.B2,
-                "some skypes adress",
-                feedback);
+        employeeService = (EmployeeService) applicationContext.getBean("employeeService");
+        employeeList = new ArrayList<>();
+        modifiedList = new ArrayList<>();
 
 
     }
+    @AfterClass
+    public static void destroy(){
+        HibernateSessionFactoryUtil.shutdown();
+    }
 
-/*
     @Test
     public void testAddedNewEmployee(){
-
-        employee.addNewEmployee();
-        Employee employeeLastAdded = new Employee();
-        employeeLastAdded.getLastEmployee();
-        assertEquals(employeeLastAdded.getId(),employee.getId());
+        employee = employeeService.findEmployee(2);
+        employeeList = employeeService.findAllEmployees();
+        employeeService.saveEmployee(employee);
+        modifiedList = employeeService.findAllEmployees();
+        assertTrue(modifiedList.size() > employeeList.size());
     }
 
 
     @Test
     public void testSelectEmployee(){
-        employee.selectEmployee(11, 0);
-        assertEquals(11, employee.getId());
+        employee = employeeService.findEmployee(2);
+        assertNotNull(employee);
+        assertEquals(2,employee.getId());
     }
 
     @Test
     public void testDeleteEmployee(){
-        employee.addNewEmployee();
-        employee.getLastEmployee();
-        assertTrue(employee.deleteEmployee());
+        employee = employeeService.findEmployee(2);
+        employee.setFeedback(feedback);
+        employee.setProject(project);
+        employeeService.saveEmployee(employee);
+        modifiedList = employeeService.findAllEmployees();
+        employeeService.deleteEmployee(employee);
+        employeeList = employeeService.findAllEmployees();
+        assertTrue(modifiedList.size() > employeeList.size());
     }
 
     @Test
-    public void tetsUpdateEmployee(){
-        employee.getLastEmployee();
+    public void testUpdateEmployee(){
+        employee = employeeService.findEmployee(2);
         employee.setName("Andrew");
-        employee.updateEmployee();
-        employee.getLastEmployee();
-        assertEquals("Andrew",employee.getName());
+        employee.setFeedback(feedback);
+        employee.setProject(project);
+        employee.setFio(employee.generateFIO());
+        employeeService.updateEmployee(employee);
+        Employee modified = employeeService.findEmployee(2);
+        assertEquals("Andrew", modified.getName());
     }
 
     @Test
     public void testSelectAllEmployee(){
-        employeeList = employee.selectAll();
-        assertNotNull(employeeList);
+        employeeList = employeeService.findAllEmployees();
+        assertTrue(employeeList.size() > 0);
     }
-
- */
 }

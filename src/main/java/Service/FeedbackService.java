@@ -9,11 +9,13 @@ import java.util.List;
 
 public class FeedbackService {
 
-    private final FeedbackDAOImpl feedbackDAO;
+    private FeedbackDAOImpl feedbackDAO = new FeedbackDAOImpl();
 
     public FeedbackService(FeedbackDAOImpl feedbackDAO){
         this.feedbackDAO = feedbackDAO;
     }
+
+    public FeedbackService(){}
 
     public Feedback findFeedback(long id) {
         return feedbackDAO.findById(id);

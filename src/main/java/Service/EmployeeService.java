@@ -10,11 +10,13 @@ import java.util.List;
 
 public class EmployeeService {
 
-    private final EmployeeDAOImpl employeeDAO;
+    private EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
 
     public EmployeeService(EmployeeDAOImpl employeeDAO){
         this.employeeDAO = employeeDAO;
     }
+
+    public EmployeeService(){}
 
     public Employee findEmployee(long id) {
         return employeeDAO.findById(id);

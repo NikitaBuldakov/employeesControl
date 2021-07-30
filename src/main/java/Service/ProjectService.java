@@ -10,11 +10,13 @@ import java.util.List;
 
 public class ProjectService {
 
-    private final ProjectDAOImpl projectDAO;
+    private ProjectDAOImpl projectDAO = new ProjectDAOImpl();
 
     public ProjectService(ProjectDAOImpl projectDAO){
         this.projectDAO = projectDAO;
     }
+
+    public ProjectService(){}
 
     public Project findProject(long id) {
         return projectDAO.findById(id);

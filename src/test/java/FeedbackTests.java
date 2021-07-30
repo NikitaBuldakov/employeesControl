@@ -1,62 +1,80 @@
 
+import Entity.Feedback;
+import HibernateUtil.HibernateSessionFactoryUtil;
+import Service.FeedbackService;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+
 public class FeedbackTests {
 
-    /*
-    private GregorianCalendar dateOfCreating;
     private Feedback feedback;
     List<Feedback> feedbackList;
-
-    @BeforeClass
-    public static void init(){
-        JDBCPostgreSQLConnector.initConnection();
-    }
+    List<Feedback> modifiedList;
+    private FeedbackService feedbackService;
 
     @Before
     public void setUp(){
-        dateOfCreating = new GregorianCalendar(2000, Calendar.APRIL, 24);
-        feedback = new Feedback("All cool",dateOfCreating.getTime());
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
+        feedback = (Feedback) applicationContext.getBean("feedback");
+        feedbackService = (FeedbackService) applicationContext.getBean("feedbackService");
         feedbackList = new ArrayList<>();
+        modifiedList = new ArrayList<>();
     }
 
     @AfterClass
-    public static void destroy() throws SQLException {
-        JDBCPostgreSQLConnector.closeConnection();
+    public static void destroy(){
+        HibernateSessionFactoryUtil.shutdown();
     }
 
     @Test
     public void testAddedNewFeedback(){
-        feedback.addNewFeedback();
-        Feedback feedbackLastAdded = new Feedback();
-        feedbackLastAdded.getLast();
-        assertEquals(feedbackLastAdded.getId(),feedback.getId());
+        feedback = feedbackService.findFeedback(2);
+        feedbackList = feedbackService.findAllFeedbacks();
+        feedbackService.saveFeedback(feedback);
+        modifiedList = feedbackService.findAllFeedbacks();
+        assertTrue(modifiedList.size() > feedbackList.size());
     }
+
 
     @Test
     public void testSelectFeedback(){
-        feedback.selectFeedBack(2);
-        assertEquals(2, feedback.getId());
+        feedback = feedbackService.findFeedback(2);
+        assertNotNull(feedback);
+        assertEquals(2,feedback.getId());
     }
 
     @Test
     public void testDeleteFeedback(){
-        feedback.addNewFeedback();
-        feedback.getLast();
-        assertTrue(feedback.deleteFeedback());
+        feedback = feedbackService.findFeedback(2);
+        feedbackService.saveFeedback(feedback);
+        modifiedList = feedbackService.findAllFeedbacks();
+        feedbackService.deleteFeedback(feedback);
+        feedbackList = feedbackService.findAllFeedbacks();
+        assertTrue(modifiedList.size() > feedbackList.size());
     }
 
     @Test
-    public void tetsUpdateFeedback(){
-        feedback.addNewFeedback();
-        feedback.getLast();
-        feedback.setDescription("All bad");
-        assertTrue(feedback.updateFeedBack());
+    public void testUpdateFeedback(){
+        feedback = feedbackService.findFeedback(2);
+        feedback.setDescription("Test cool tests");
+        feedbackService.updateFeedback(feedback);
+        Feedback modified = feedbackService.findFeedback(2);
+        assertEquals("Test cool tests",modified.getDescription());
     }
 
     @Test
     public void testSelectAllFeedback(){
-        feedbackList = feedback.selectAll();
-        assertNotNull(feedbackList);
+        feedbackList = feedbackService.findAllFeedbacks();
+        assertTrue(feedbackList.size() > 0);
     }
-
-     */
 }

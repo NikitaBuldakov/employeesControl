@@ -1,14 +1,7 @@
 package Entity;
 
-import CustomException.ExceptionHandler;
-import DataBaseConnection.JDBCPostgreSQLConnector;
-import Mapper.EmployeeMapper;
-import Mapper.ListMapper;
-import Mapper.ProjectMapper;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Setter
 @Getter

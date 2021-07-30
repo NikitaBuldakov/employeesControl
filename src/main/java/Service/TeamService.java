@@ -9,11 +9,13 @@ import java.util.List;
 
 public class TeamService {
 
-    private final TeamDAOImpl teamDAO;
+    private TeamDAOImpl teamDAO = new TeamDAOImpl();
 
     public TeamService(TeamDAOImpl teamDAO){
         this.teamDAO = teamDAO;
     }
+
+    public TeamService(){}
 
     public Team findTeam(long id) {
         return teamDAO.findById(id);

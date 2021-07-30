@@ -11,10 +11,10 @@
     <bean id = "feedbackDAOImpl" class="DAO.FeedbackDAOImpl"/>
     <bean id = "projectDAOImpl" class="DAO.ProjectDAOImpl"/>
     <bean id = "teamDAOImpl" class="DAO.TeamDAOImpl"/>
-    <bean id = "employeeService" class="Service.EmployeeService"/>
-    <bean id = "feedbackService" class="Service.FeedbackService"/>
-    <bean id = "projectService" class="Service.ProjectService"/>
-    <bean id = "teamService" class="Service.TeamService"/>
+    <bean id = "employeeService" class="Service.EmployeeService" autowire="byType"/>
+    <bean id = "feedbackService" class="Service.FeedbackService" autowire="byType"/>
+    <bean id = "projectService" class="Service.ProjectService" autowire="byType"/>
+    <bean id = "teamService" class="Service.TeamService" autowire="byType"/>
     <bean id = "hibernateUtil" class="HibernateUtil.HibernateSessionFactoryUtil" factory-method="getSessionFactory"/>
 
 
