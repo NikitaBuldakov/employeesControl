@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/employeeControl</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="employeeControl" uuid="b85264a0-3880-41fd-bede-1b8f02592f7f">
+      <driver-ref>h2.unified</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.h2.Driver</jdbc-driver>
+      <jdbc-url>jdbc:h2:D:\employeesControl\src\main\resources\H2.mv.db\employeeControl;MV_STORE=false</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

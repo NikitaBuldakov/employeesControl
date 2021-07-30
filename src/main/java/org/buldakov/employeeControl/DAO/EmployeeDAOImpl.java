@@ -12,7 +12,7 @@ import java.util.List;
 public class EmployeeDAOImpl implements DAOInterface<Employee>{
 
     @Override
-    public Employee findById(int id) {
+    public Employee findById(long id) {
         return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Employee.class, id);
     }
 

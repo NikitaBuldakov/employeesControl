@@ -21,8 +21,8 @@ public class Team {
     @Column(name = "team_id")
     public long team_id;
 
-    @OneToMany( fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
     public List<Employee> employeeList = new ArrayList<>();
 
     public Team(){}

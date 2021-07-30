@@ -5,12 +5,14 @@ import org.buldakov.employeeControl.Entity.Project;
 import org.buldakov.employeeControl.HibernateUtil.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class ProjectDAOImpl implements DAOInterface<Project>{
     @Override
-    public Project findById(int id) {
+    public Project findById(long id) {
         return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Project.class, id);
     }
 

@@ -3,7 +3,7 @@ package org.buldakov.employeeControl.DAO;
 import java.util.List;
 
 public interface DAOInterface<E>{
-    E findById(int id);
+    E findById(long id);
 
     void save(E e);
 

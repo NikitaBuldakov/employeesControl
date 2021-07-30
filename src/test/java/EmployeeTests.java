@@ -5,6 +5,7 @@ import org.buldakov.employeeControl.Entity.EmployeeEnum.LevelOfDeveloper;
 import org.buldakov.employeeControl.Entity.Feedback;
 import org.buldakov.employeeControl.Entity.Project;
 import org.buldakov.employeeControl.Entity.Team;
+import org.buldakov.employeeControl.HibernateUtil.HibernateSessionFactoryUtil;
 import org.buldakov.employeeControl.Service.EmployeeService;
 import org.junit.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,6 @@ public class EmployeeTests {
     private Employee employee;
     private Project project;
     private Feedback feedback;
-    private GregorianCalendar birthDate;
-    private GregorianCalendar dateOfEmployment;
     private List<Employee> employeeList;
     private List<Employee> modifiedList;
     private EmployeeService employeeService;
@@ -39,52 +38,65 @@ public class EmployeeTests {
 
         feedback = ctx.getBean(Feedback.class);
         project = ctx.getBean(Project.class);
+        employee = ctx.getBean(Employee.class);
         employeeService = ctx.getBean(EmployeeService.class);
         employeeList = new ArrayList<>();
         modifiedList = new ArrayList<>();
         project.setId(1);
         feedback.setId(2);
-        birthDate = new GregorianCalendar(2000, Calendar.APRIL, 24);
-        dateOfEmployment = new GregorianCalendar(2021, Calendar.AUGUST, 12);
-        employee = new Employee("Nikita",
-                "Buldakov",
-                "Konstantinovich",
-                "nkb5@mail.ru",
-                "89533553049",
-                birthDate,
-                "None",
-                dateOfEmployment,
-                project,
-                LevelOfDeveloper.J1,
-                EnglishMastery.B2,
-                "some skypes adress",
-                feedback);
 
 
+
+    }
+    @AfterClass
+    public static void destroy(){
+        HibernateSessionFactoryUtil.shutdown();
     }
 
     @Test
     public void testAddedNewEmployee(){
-        employeeList = employeeService.findAllUsers();
-        employeeService.saveUser(employee);
-        modifiedList = employeeService.findAllUsers();
+        employee = employeeService.findEmployee(2);
+        employeeList = employeeService.findAllEmployees();
+        employeeService.saveEmployee(employee);
+        modifiedList = employeeService.findAllEmployees();
         assertTrue(modifiedList.size() > employeeList.size());
     }
 
 
     @Test
     public void testSelectEmployee(){
+        employee = employeeService.findEmployee(2);
+        assertNotNull(employee);
+        assertEquals(2,employee.getId());
     }
 
     @Test
     public void testDeleteEmployee(){
+        employee = employeeService.findEmployee(2);
+        employee.setFeedback(feedback);
+        employee.setProject(project);
+        employeeService.saveEmployee(employee);
+        modifiedList = employeeService.findAllEmployees();
+        employeeService.deleteEmployee(employee);
+        employeeList = employeeService.findAllEmployees();
+        assertTrue(modifiedList.size() > employeeList.size());
     }
 
     @Test
-    public void tetsUpdateEmployee(){
+    public void testUpdateEmployee(){
+        employee = employeeService.findEmployee(2);
+        employee.setName("Andrew");
+        employee.setFeedback(feedback);
+        employee.setProject(project);
+        employee.setFio(employee.generateFIO());
+        employeeService.updateEmployee(employee);
+        Employee modified = employeeService.findEmployee(2);
+        assertEquals("Andrew", modified.getName());
     }
 
     @Test
     public void testSelectAllEmployee(){
+        employeeList = employeeService.findAllEmployees();
+        assertTrue(employeeList.size() > 0);
     }
 }

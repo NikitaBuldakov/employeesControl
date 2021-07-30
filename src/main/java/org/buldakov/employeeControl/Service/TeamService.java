@@ -3,9 +3,11 @@ package org.buldakov.employeeControl.Service;
 import org.buldakov.employeeControl.DAO.TeamDAOImpl;
 import org.buldakov.employeeControl.Entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class TeamService {
     @Autowired
     private final TeamDAOImpl teamDAO;
@@ -14,23 +16,23 @@ public class TeamService {
         this.teamDAO = teamDAO;
     }
 
-    public Team findUser(int id) {
+    public Team findTeam(long id) {
         return teamDAO.findById(id);
     }
 
-    public void saveUser(Team team) {
+    public void saveTeam(Team team) {
         teamDAO.save(team);
     }
 
-    public void deleteUser(Team team) {
+    public void deleteTeam(Team team) {
         teamDAO.delete(team);
     }
 
-    public void updateUser(Team team) {
+    public void updateTeam(Team team) {
         teamDAO.update(team);
     }
 
-    public List<Team> findAllUsers() {
+    public List<Team> findAllTeams() {
         return teamDAO.findAll();
     }
 }

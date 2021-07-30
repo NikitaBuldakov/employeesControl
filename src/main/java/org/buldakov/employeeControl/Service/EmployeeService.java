@@ -17,25 +17,26 @@ public class EmployeeService {
         this.employeeDAO = employeeDAO;
     }
 
-    public Employee findUser(int id) {
+    public Employee findEmployee(long id) {
         return employeeDAO.findById(id);
     }
 
-    public void saveUser(Employee employee) {
+    public void saveEmployee(Employee employee) {
         employeeDAO.save(employee);
     }
 
-    public void deleteUser(Employee employee) {
+    public void deleteEmployee(Employee employee) {
         employeeDAO.delete(employee);
     }
 
-    public void updateUser(Employee employee) {
+    public void updateEmployee(Employee employee) {
         employeeDAO.update(employee);
     }
 
-    public List<Employee> findAllUsers() {
+    public List<Employee> findAllEmployees() {
         return employeeDAO.findAll();
     }
+
 
 
 }

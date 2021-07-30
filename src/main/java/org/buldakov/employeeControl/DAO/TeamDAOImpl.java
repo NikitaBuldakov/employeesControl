@@ -5,12 +5,14 @@ import org.buldakov.employeeControl.Entity.Team;
 import org.buldakov.employeeControl.HibernateUtil.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class TeamDAOImpl implements DAOInterface<Team>{
     @Override
-    public Team findById(int id) {
+    public Team findById(long id) {
         return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Team.class, id);
     }
 

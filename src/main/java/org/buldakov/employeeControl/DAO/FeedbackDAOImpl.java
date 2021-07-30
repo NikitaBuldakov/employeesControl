@@ -5,12 +5,14 @@ import org.buldakov.employeeControl.Entity.Feedback;
 import org.buldakov.employeeControl.HibernateUtil.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class FeedbackDAOImpl  implements DAOInterface<Feedback>{
     @Override
-    public Feedback findById(int id) {
+    public Feedback findById(long id) {
         return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Feedback.class, id);
     }
 
