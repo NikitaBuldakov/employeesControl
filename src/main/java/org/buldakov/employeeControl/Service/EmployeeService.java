@@ -3,13 +3,15 @@ package org.buldakov.employeeControl.Service;
 import org.buldakov.employeeControl.DAO.EmployeeDAOImpl;
 import org.buldakov.employeeControl.Entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class EmployeeService {
 
     @Autowired
-    private EmployeeDAOImpl employeeDAO;
+    private final EmployeeDAOImpl employeeDAO;
 
     public EmployeeService(EmployeeDAOImpl employeeDAO){
         this.employeeDAO = employeeDAO;

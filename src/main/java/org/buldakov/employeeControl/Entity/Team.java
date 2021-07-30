@@ -1,6 +1,7 @@
 package org.buldakov.employeeControl.Entity;
 
 import lombok.Data;
+import org.hibernate.annotations.NaturalId;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -15,10 +16,13 @@ public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NaturalId
     @Column(name = "team_id")
     public long team_id;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany( fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
     public List<Employee> employeeList = new ArrayList<>();
 
     public Team(){}

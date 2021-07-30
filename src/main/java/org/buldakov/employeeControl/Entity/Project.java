@@ -25,7 +25,7 @@ public class Project {
     public String projectManager;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "team_id")
     public Team team;
 
 

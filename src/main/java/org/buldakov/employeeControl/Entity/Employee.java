@@ -35,21 +35,20 @@ public class Employee {
     public String workExperience;
     @Column(name = "dateofemployment")
     public Date dateOfEmployment;
-    @Column(name = "project")
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "project_id")
     public Project project;
 
     @Column(name = "levelofdeveloper")
-    public Enum levelOfDeveloper;
+    public String levelOfDeveloper;
     @Column(name = "englishmastery")
-    public Enum englishMastery;
+    public String englishMastery;
     @Column(name = "skype")
     public String skype;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "feedback_id")
     public Feedback feedback;
 
     public Employee(){}
@@ -77,8 +76,8 @@ public class Employee {
         this.workExperience = workExperience;
         this.dateOfEmployment = new Date(dateOfEmployment.getTimeInMillis());
         this.project = project;
-        this.levelOfDeveloper = levelOfDeveloper;
-        this.englishMastery = englishMastery;
+        this.levelOfDeveloper = levelOfDeveloper.toString();
+        this.englishMastery = englishMastery.toString();
         this.skype = skype;
         this.feedback = feedback;
     }

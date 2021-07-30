@@ -2,8 +2,12 @@ import org.buldakov.employeeControl.Config.SpringConfig;
 import org.buldakov.employeeControl.Entity.Employee;
 import org.buldakov.employeeControl.Entity.EmployeeEnum.EnglishMastery;
 import org.buldakov.employeeControl.Entity.EmployeeEnum.LevelOfDeveloper;
+import org.buldakov.employeeControl.Entity.Feedback;
+import org.buldakov.employeeControl.Entity.Project;
 import org.buldakov.employeeControl.Entity.Team;
+import org.buldakov.employeeControl.Service.EmployeeService;
 import org.junit.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.sql.SQLException;
@@ -17,16 +21,13 @@ import static org.junit.Assert.*;
 public class EmployeeTests {
 
     private Employee employee;
-    private Team project;
-    private Team feedback;
+    private Project project;
+    private Feedback feedback;
     private GregorianCalendar birthDate;
     private GregorianCalendar dateOfEmployment;
     private List<Employee> employeeList;
-
-    @BeforeClass
-    public static void init(){
-        JDBCPostgreSQLConnector.initConnection();
-    }
+    private List<Employee> modifiedList;
+    private EmployeeService employeeService;
 
     @Before
     public void setUp(){
@@ -36,9 +37,11 @@ public class EmployeeTests {
         ctx.scan("org.buldakov.employeeControl");
         ctx.refresh();
 
-        feedback = ctx.getBean(Team.class);
-        project = ctx.getBean(Team.class);
+        feedback = ctx.getBean(Feedback.class);
+        project = ctx.getBean(Project.class);
+        employeeService = ctx.getBean(EmployeeService.class);
         employeeList = new ArrayList<>();
+        modifiedList = new ArrayList<>();
         project.setId(1);
         feedback.setId(2);
         birthDate = new GregorianCalendar(2000, Calendar.APRIL, 24);
@@ -60,46 +63,28 @@ public class EmployeeTests {
 
     }
 
-    @AfterClass
-    public static void destroy() throws SQLException {
-        JDBCPostgreSQLConnector.closeConnection();
-    }
-
     @Test
     public void testAddedNewEmployee(){
-
-        employee.addNewEmployee();
-        Employee employeeLastAdded = new Employee();
-        employeeLastAdded.getLastEmployee();
-        assertEquals(employeeLastAdded.getId(),employee.getId());
+        employeeList = employeeService.findAllUsers();
+        employeeService.saveUser(employee);
+        modifiedList = employeeService.findAllUsers();
+        assertTrue(modifiedList.size() > employeeList.size());
     }
 
 
     @Test
     public void testSelectEmployee(){
-        employee.selectEmployee(11, 0);
-        assertEquals(11, employee.getId());
     }
 
     @Test
     public void testDeleteEmployee(){
-        employee.addNewEmployee();
-        employee.getLastEmployee();
-        assertTrue(employee.deleteEmployee());
     }
 
     @Test
     public void tetsUpdateEmployee(){
-        employee.getLastEmployee();
-        employee.setName("Andrew");
-        employee.updateEmployee();
-        employee.getLastEmployee();
-        assertEquals("Andrew",employee.getName());
     }
 
     @Test
     public void testSelectAllEmployee(){
-        employeeList = employee.selectAll();
-        assertNotNull(employeeList);
     }
 }

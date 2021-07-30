@@ -30,7 +30,8 @@ public class HibernateSessionFactoryUtil {
                 configuration.addAnnotatedClass(Feedback.class);
                 configuration.addAnnotatedClass(Project.class);
                 configuration.addAnnotatedClass(Team.class);
-                StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
+                StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
+                        .applySettings(configuration.getProperties());
                 sessionFactory = configuration.buildSessionFactory(builder.build());
 
             } catch (Exception e) {

@@ -1,52 +1,50 @@
 package org.buldakov.employeeControl.DAO;
 
 import org.buldakov.employeeControl.Entity.Employee;
+import org.buldakov.employeeControl.Entity.Project;
 import org.buldakov.employeeControl.HibernateUtil.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
-public class EmployeeDAOImpl implements DAOInterface<Employee>{
-
+public class ProjectDAOImpl implements DAOInterface<Project>{
     @Override
-    public Employee findById(int id) {
-        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Employee.class, id);
+    public Project findById(int id) {
+        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Project.class, id);
     }
 
     @Override
-    public void save(Employee employee) {
+    public void save(Project project) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
-        session.save(employee);
+        session.save(project);
         tx1.commit();
         session.close();
     }
 
     @Override
-    public void update(Employee employee) {
+    public void update(Project project) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
-        session.update(employee);
+        session.update(project);
         tx1.commit();
         session.close();
     }
 
     @Override
-    public void delete(Employee employee) {
+    public void delete(Project project) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
-        session.delete(employee);
+        session.delete(project);
         tx1.commit();
         session.close();
     }
 
     @Override
-    public List<Employee> findAll() {
-        List<Employee> employee = (List<Employee>)  HibernateSessionFactoryUtil.getSessionFactory()
-                .openSession().createQuery("From Employee").list();
-        return employee;
+    public List<Project> findAll() {
+        List<Project> projects = (List<Project>)  HibernateSessionFactoryUtil.getSessionFactory()
+                .openSession().createQuery("From Project ").list();
+        return projects;
     }
 }

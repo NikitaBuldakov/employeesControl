@@ -1,52 +1,50 @@
 package org.buldakov.employeeControl.DAO;
 
 import org.buldakov.employeeControl.Entity.Employee;
+import org.buldakov.employeeControl.Entity.Feedback;
 import org.buldakov.employeeControl.HibernateUtil.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
-public class EmployeeDAOImpl implements DAOInterface<Employee>{
-
+public class FeedbackDAOImpl  implements DAOInterface<Feedback>{
     @Override
-    public Employee findById(int id) {
-        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Employee.class, id);
+    public Feedback findById(int id) {
+        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Feedback.class, id);
     }
 
     @Override
-    public void save(Employee employee) {
+    public void save(Feedback feedback) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
-        session.save(employee);
+        session.save(feedback);
         tx1.commit();
         session.close();
     }
 
     @Override
-    public void update(Employee employee) {
+    public void update(Feedback feedback) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
-        session.update(employee);
+        session.update(feedback);
         tx1.commit();
         session.close();
     }
 
     @Override
-    public void delete(Employee employee) {
+    public void delete(Feedback feedback) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
-        session.delete(employee);
+        session.delete(feedback);
         tx1.commit();
         session.close();
     }
 
     @Override
-    public List<Employee> findAll() {
-        List<Employee> employee = (List<Employee>)  HibernateSessionFactoryUtil.getSessionFactory()
-                .openSession().createQuery("From Employee").list();
-        return employee;
+    public List<Feedback> findAll() {
+        List<Feedback> feedbacks = (List<Feedback>)  HibernateSessionFactoryUtil.getSessionFactory()
+                .openSession().createQuery("From Feedback").list();
+        return feedbacks;
     }
 }
