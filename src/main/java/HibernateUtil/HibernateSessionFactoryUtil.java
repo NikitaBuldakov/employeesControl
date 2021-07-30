@@ -1,11 +1,11 @@
-package org.buldakov.employeeControl.HibernateUtil;
+package HibernateUtil;
 
+import CustomException.ExceptionHandler;
+import Entity.Employee;
+import Entity.Feedback;
+import Entity.Project;
+import Entity.Team;
 import lombok.SneakyThrows;
-import org.buldakov.employeeControl.CustomException.ExceptionHandler;
-import org.buldakov.employeeControl.Entity.Employee;
-import org.buldakov.employeeControl.Entity.Feedback;
-import org.buldakov.employeeControl.Entity.Project;
-import org.buldakov.employeeControl.Entity.Team;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
