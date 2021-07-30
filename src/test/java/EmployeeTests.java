@@ -1,5 +1,3 @@
-import DataBaseConnection.ConnectionPool;
-import DataBaseConnection.JDBCPostgreSQLConnector;
 import Entity.Employee;
 import Entity.EmployeeEnum.EnglishMastery;
 import Entity.EmployeeEnum.LevelOfDeveloper;
@@ -25,10 +23,7 @@ public class EmployeeTests {
     private GregorianCalendar dateOfEmployment;
     private List<Employee> employeeList;
 
-    @BeforeClass
-    public static void init(){
-        JDBCPostgreSQLConnector.initConnection();
-    }
+
 
     @Before
     public void setUp(){
@@ -59,11 +54,7 @@ public class EmployeeTests {
 
     }
 
-    @AfterClass
-    public static void destroy() throws SQLException {
-        JDBCPostgreSQLConnector.closeConnection();
-    }
-
+/*
     @Test
     public void testAddedNewEmployee(){
 
@@ -101,4 +92,6 @@ public class EmployeeTests {
         employeeList = employee.selectAll();
         assertNotNull(employeeList);
     }
+
+ */
 }

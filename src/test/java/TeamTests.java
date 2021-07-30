@@ -1,22 +1,4 @@
-import DataBaseConnection.JDBCPostgreSQLConnector;
-import Entity.Employee;
-import Entity.Feedback;
-import Entity.Project;
-import Entity.Team;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertTrue;
-
+/*
 public class TeamTests {
 
     private Team team;
@@ -79,3 +61,5 @@ public class TeamTests {
         assertNotNull(teamList);
     }
 }
+
+ */

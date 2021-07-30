@@ -1,16 +1,4 @@
-import DataBaseConnection.JDBCPostgreSQLConnector;
-import Entity.Project;
-import Entity.Team;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.*;
+/*
 
 public class ProjectTests {
 
@@ -73,3 +61,6 @@ public class ProjectTests {
         assertNotNull(projectList);
     }
 }
+
+
+ */
